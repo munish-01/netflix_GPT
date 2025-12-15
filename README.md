@@ -2,6 +2,9 @@
 
 - create react app
 - configured Tailwind css
+- Header
+- Sign IN Form (login)
+- Sign Up form (register new account)
 
 # Features going to build
 Homepage
