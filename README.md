@@ -8,6 +8,13 @@
 - Sign Up form (register new account)
 - Form validaton
 - useRef hook
+- Firebase Setup
+- Deploying our app to production
+- Create SignUp user Account
+- Implement Sign In user api
+- Created Redux Store with userSlice
+- Implemented Sign Out feature
+- fetch from TMDB movies - upcoming...
 
 # Features going to build
 Homepage

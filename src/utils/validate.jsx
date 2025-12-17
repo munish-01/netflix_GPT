@@ -1,7 +1,7 @@
 const checkValidData = (name, email, password, isSignIn) => {
   const errors = {};
 
-  const isNameValid = /^[a-zA-Z\s\-]+$/.test(name);
+  // const isNameValid = /^[a-zA-Z\s\-]+$/.test(name);
 
   const isEmailValid = /^[\w\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}$/.test(email);
 

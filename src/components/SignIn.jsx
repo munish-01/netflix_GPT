@@ -2,13 +2,25 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import bg_logo from "../assets/bg.jpg";
 import checkValidData from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { getFirebaseAuthError } from "../utils/firebaseErrorMap";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const SignIn = () => {
-  const [isSignIn, setIsSignIn] = useState(true);
-  // const [errorMessage, setErrorMessage] = useState(null)
+  const [isSignIn, setIsSignIn] = useState("signIn");
   const [nameError, setNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const [authError, setAuthError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -28,7 +40,62 @@ const SignIn = () => {
 
     if (Object.keys(message).length > 0) return;
 
-    // logic for sign Up
+    // logic for sign In/Up Logic
+    if (!isSignIn) {
+      // signUp logic here
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/141801622?v=4",
+          })
+            .then(() => {
+              // auth.currentUser is updated user not exisiting one
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              // Profile updated!
+              navigate("/browse");
+            })
+            .catch((error) => {
+              // An error occurred
+              setAuthError(getFirebaseAuthError(error.code));
+            });
+          // console.log(user);
+        })
+        .catch((error) => {
+          console.log("Firebase error code:", error.code); // IMPORTANT
+          setAuthError(getFirebaseAuthError(error.code));
+        });
+    } else {
+      // signIn logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          console.log("Firebase error code:", error.code); // IMPORTANT
+          setAuthError(getFirebaseAuthError(error.code));
+        });
+    }
   };
 
   const toggleSignInForm = () => {
@@ -39,7 +106,7 @@ const SignIn = () => {
     <div>
       <Header />
       <div className="fixed inset-0 -z-10">
-        <img src={bg_logo} className="h-full w-full object-cover"/>
+        <img src={bg_logo} className="h-full w-full object-cover" />
       </div>
       <form
         className="absolute p-12 bg-black/85 w-3/12 my-36 mx-auto left-0 right-0 text-white rounded"
@@ -78,6 +145,12 @@ const SignIn = () => {
         {passwordError && (
           <p className="text-red-500 text-sm mb-2">{passwordError}</p>
         )}
+
+        <div>
+          {authError && (
+            <p className="text-red-500 text-sm mb-3">{authError}</p>
+          )}
+        </div>
 
         <button
           className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 mt-4 rounded"
