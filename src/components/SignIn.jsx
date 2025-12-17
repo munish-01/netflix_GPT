@@ -65,14 +65,11 @@ const SignIn = () => {
                   photoURL: photoURL,
                 })
               );
-              // Profile updated!
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
               setAuthError(getFirebaseAuthError(error.code));
             });
-          // console.log(user);
         })
         .catch((error) => {
           console.log("Firebase error code:", error.code); // IMPORTANT
@@ -88,8 +85,6 @@ const SignIn = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          // console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           console.log("Firebase error code:", error.code); // IMPORTANT
