@@ -1,21 +1,19 @@
 import React, { useEffect } from "react";
 import logo from "../assets/logo.png";
-import { useNavigate } from "react-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { useNavigate } from "react-router";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const user = useSelector((store) => store.user);
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch(
         (error = {
           // an error hanppened - page bna lena
@@ -24,7 +22,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         dispatch(
@@ -42,6 +40,10 @@ const Header = () => {
         navigate("/");
       }
     });
+
+    // unSubscribe when component unmounts
+    return ()=> unSubscribe()
+    // and it will unSubscribe my onAuthStateChange
   }, []);
 
   return (

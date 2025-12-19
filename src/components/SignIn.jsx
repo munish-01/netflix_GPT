@@ -9,9 +9,9 @@ import {
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { getFirebaseAuthError } from "../utils/firebaseErrorMap";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { AVTAR_URL } from "../utils/constants";
 
 const SignIn = () => {
   const [isSignIn, setIsSignIn] = useState("signIn");
@@ -20,7 +20,6 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState(null);
   const [authError, setAuthError] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const name = useRef(null);
   const email = useRef(null);
@@ -52,7 +51,7 @@ const SignIn = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/141801622?v=4",
+            photoURL: AVTAR_URL,
           })
             .then(() => {
               // auth.currentUser is updated user not exisiting one
