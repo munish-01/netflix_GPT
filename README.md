@@ -35,6 +35,9 @@
 - TMDB Image CDN URL
 - Made the Browsre page amazing with Tailwind CSS
 - usePopularMovies Custom hook
+- useTrendingMovies custom hook
+- useHorroMovies custom hook
+- useUpComingMovies custom hook
 
 # Features going to build
 Homepage
