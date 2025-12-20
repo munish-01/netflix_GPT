@@ -97,71 +97,93 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <div className="fixed inset-0 -z-10">
-        <img src={bg_logo} className="h-full w-full object-cover" />
-      </div>
-      <form
-        className="absolute p-12 bg-black/85 w-3/12 my-36 mx-auto left-0 right-0 text-white rounded"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <h1 className="text-3xl font-semibold mb-6">
-          {isSignIn ? "Sign In" : "Sign Up"}
-        </h1>
+<div className="relative min-h-screen bg-black">
+  {/* Header */}
+  <Header />
 
-        {!isSignIn && (
+  {/* Background */}
+  <div className="fixed inset-0 -z-10">
+    <img
+      src={bg_logo}
+      className="h-full w-full object-cover"
+      alt="background"
+    />
+    {/* Overlay for readability */}
+    <div className="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  {/* Form Wrapper */}
+  <div className="flex items-center justify-center min-h-screen px-4 pt-24">
+    <form
+      className="w-full max-w-md bg-black/80 text-white rounded-lg
+                 p-6 sm:p-8 md:p-10 shadow-lg"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <h1 className="text-2xl md:text-3xl font-semibold mb-6">
+        {isSignIn ? "Sign In" : "Sign Up"}
+      </h1>
+
+      {!isSignIn && (
+        <>
           <input
             type="text"
             placeholder="Full Name"
-            className="p-4 my-3 w-full bg-gray-700 rounded"
+            className="p-3 my-2 w-full bg-gray-700 rounded outline-none"
             ref={name}
           />
-        )}
-        {nameError && <p className="text-red-500 text-sm mb-2">{nameError}</p>}
-
-        <input
-          type="text"
-          placeholder="Email"
-          className="p-4 my-3 w-full bg-gray-700 rounded"
-          ref={email}
-        />
-        {emailError && (
-          <p className="text-red-500 text-sm mb-2">{emailError}</p>
-        )}
-
-        <input
-          type="password"
-          placeholder="Password"
-          className="p-4 my-3 w-full bg-gray-700 rounded"
-          ref={password}
-        />
-        {passwordError && (
-          <p className="text-red-500 text-sm mb-2">{passwordError}</p>
-        )}
-
-        <div>
-          {authError && (
-            <p className="text-red-500 text-sm mb-3">{authError}</p>
+          {nameError && (
+            <p className="text-red-500 text-sm mb-1">{nameError}</p>
           )}
-        </div>
+        </>
+      )}
 
-        <button
-          className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 mt-4 rounded"
-          onClick={handleButtonClick}
+      <input
+        type="text"
+        placeholder="Email"
+        className="p-3 my-2 w-full bg-gray-700 rounded outline-none"
+        ref={email}
+      />
+      {emailError && (
+        <p className="text-red-500 text-sm mb-1">{emailError}</p>
+      )}
+
+      <input
+        type="password"
+        placeholder="Password"
+        className="p-3 my-2 w-full bg-gray-700 rounded outline-none"
+        ref={password}
+      />
+      {passwordError && (
+        <p className="text-red-500 text-sm mb-1">{passwordError}</p>
+      )}
+
+      {authError && (
+        <p className="text-red-500 text-sm mt-2">{authError}</p>
+      )}
+
+      <button
+        className="w-full bg-red-600 hover:bg-red-700
+                   text-white font-semibold py-3 mt-4 rounded
+                   transition-colors"
+        onClick={handleButtonClick}
+      >
+        {isSignIn ? "Sign In" : "Sign Up"}
+      </button>
+
+      <p className="text-sm mt-4 text-gray-300">
+        {isSignIn ? "New to Netflix? " : "Already a Member. "}
+        <span
+          className="font-bold cursor-pointer hover:underline text-white"
+          onClick={toggleSignInForm}
         >
-          {isSignIn ? "Sign In" : "Sign Up"}
-        </button>
+          {isSignIn ? "Sign Up now" : "Sign In now"}
+        </span>
+      </p>
+    </form>
+  </div>
+</div>
 
-        <p>
-          {isSignIn ? "New to Netflix?  " : "Already a Member. "}
 
-          <span className="font-bold cursor-pointer" onClick={toggleSignInForm}>
-            {isSignIn ? "Sign Up now" : "Sign In now"}
-          </span>
-        </p>
-      </form>
-    </div>
   );
 };
 

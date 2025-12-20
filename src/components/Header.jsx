@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useSelector((store) => store.user);
 
   const handleSignOut = () => {
@@ -42,35 +42,42 @@ const Header = () => {
     });
 
     // unSubscribe when component unmounts
-    return ()=> unSubscribe()
+    return () => unSubscribe();
     // and it will unSubscribe my onAuthStateChange
   }, []);
 
   return (
-    <div className=" flex absolute px-8 py-2 bg-linear-to-b from-black w-full z-10 justify-between items-center">
-      <div>
+    <div className="fixed top-0 left-0 right-0 z-50">
+      <div
+        className="flex items-center justify-between px-4 md:px-10 py-3 
+                  bg-linear-to-b from-black/90 to-transparent"
+      >
         <img
-          className="w-48 cursor-pointer"
+          className="w-28 md:w-44 cursor-pointer transition-transform duration-300 hover:scale-105"
           src={logo}
           alt="logo"
           onClick={() => navigate("/")}
         />
+
+        {user && (
+          <div className="flex items-center gap-2 sm:gap-4">
+            <img
+              className="w-8 h-8 md:w-10 md:h-10 rounded-md object-cover"
+              alt="usericon"
+              src={user?.photoURL}
+            />
+
+            <button
+              onClick={handleSignOut}
+              className="block px-3 py-2 text-xs sm:text-sm font-semibold
+                     bg-red-600 hover:bg-red-700 rounded-md
+                     transition-colors"
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
-      {user && (
-        <div className="flex p-2 items-center ">
-          <img
-            className="w-12 h-12 m-3 rounded-md"
-            alt="usericon"
-            src={user?.photoURL}
-          />
-          <button
-            onClick={handleSignOut}
-            className="p-3 my-8 font-bold bg-red-600 rounded-lg justify-between text-white bg-opacity-80"
-          >
-            Sign Out
-          </button>
-        </div>
-      )}
     </div>
   );
 };
