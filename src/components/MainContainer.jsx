@@ -10,7 +10,6 @@ const MainContainer = () => {
   const mainMovie = movies[0];
 
   const { id, original_title, overview } = mainMovie;
-  // console.log(mainMovie)
   return (
     <div className="relative w-full aspect-video bg-black">
       <VideoBackground movieId={id} />

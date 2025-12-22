@@ -38,6 +38,10 @@
 - useTrendingMovies custom hook
 - useHorroMovies custom hook
 - useUpComingMovies custom hook
+- GPT Search Page
+- GPT Search Bar
+- (*feature) Multi-lang Features in our language
+
 
 # Features going to build
 Homepage

@@ -13,7 +13,6 @@ const useMovieTrailer = (movieId) => {
       API_OPTIONS
     );
     const json = await data.json();
-    // console.log(json);
 
     const filteredTrailer = json.results.filter(
       (video) => video.type === "Trailer"
@@ -22,8 +21,6 @@ const useMovieTrailer = (movieId) => {
     const trailer = filteredTrailer.lenght
       ? filteredTrailer[0]
       : json.results[0];
-    // contains only youtube video keys
-    // console.log(trailer);
     dispatch(addtrailerVideo(trailer));
   };
 
