@@ -26,7 +26,6 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
-    console.log(searchText.current.value);
     // make an API call to GPT API and get Movie result
 
     const genaiQuery =
@@ -42,7 +41,6 @@ const GptSearchBar = () => {
     if (!genaiResults.candidates) {
     }
 
-    // console.log(genaiResults.candidates);
     const genaiMovies =
       genaiResults.candidates?.[0]?.content?.parts[0]?.text.split(",");
     // by using split(","), it will give me array
@@ -55,8 +53,6 @@ const GptSearchBar = () => {
 
     // when all above promises resolve than we get data in tmdbResults
     const tmdbResults = await Promise.all(promiseArray);
-
-    console.log(tmdbResults);
 
     dispatch(
       addGptMovieResult({ movieNames: genaiMovies, movieResults: tmdbResults })
