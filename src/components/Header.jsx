@@ -17,7 +17,7 @@ const Header = () => {
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {})
+      .try(() => {})
       .catch(
         (error = {
           // an error hanppened - page bna lena
@@ -66,7 +66,6 @@ const Header = () => {
           className="w-28 md:w-44 cursor-pointer transition-transform duration-300 hover:scale-105"
           src={logo}
           alt="logo"
-          onClick={() => navigate("/")}
         />
 
         {user && (
