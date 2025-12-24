@@ -38,11 +38,11 @@
 - useTrendingMovies custom hook
 - useHorroMovies custom hook
 - useUpComingMovies custom hook
-- GPT Search Page
-- GPT Search Bar
+- Gemini Search Page
+- Gemini Search Bar
 - (*feature) Multi-lang Features in our language
 - Get Gemini Api Key
-- Gpt Search API Call
+- Gemini Search API Call
 - fetched gptMoviesSuggestions from TMDB
 - created gptSlice added data
 - Resused Movie List component to make movie suggestion container
@@ -70,3 +70,5 @@ Homepage
 - NetflixGPT
     - Search bar
     - Movie suggestions
+
+# Please create you own .env File and put api there thanks...
